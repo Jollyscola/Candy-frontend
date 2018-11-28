@@ -17,7 +17,7 @@ function Tablerow(props) {
         <tr key={shop.id}>
             <td>
                 <div>
-                    <Link to={`/butik/${shop.shopName}`}>{shop.shopName}</Link>
+                    <Link to={`/butik/${shop.shopName}-${shop.id}`}>{shop.shopName}</Link>
                     <br />
                     <small>
                         {shop.shopAddress + ", " + shop.shopPostalCode}

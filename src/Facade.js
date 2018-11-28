@@ -111,6 +111,23 @@ class Facade {
         return fetch(URL + "/api/shop/shoppostalcode/" + posticalcode, options).then(handleHttpErrors);
 
     }
+    async addReview(body) {
+        console.log(body);
+        return await fetch(URL + "/api/review",this.makeOptionswithoutToken("POST", body)).then(handleHttpErrors)
+    }
+    getshopbyid = async(value) => {
+        const id = value;
+        const options = this.makeOptionswithoutToken("GET");
+        return fetch(URL + "/api/shop/" + id, options).then(handleHttpErrors);
+    }
+
+    getreviewbyid = async(value) => {
+        const id = value;
+        console.log("id", id)
+        const options = this.makeOptionswithoutToken("GET");
+        return fetch(URL + "/api/review/" + id, options).then(handleHttpErrors);
+    }
+    
 }
 
 const facade = new Facade();
