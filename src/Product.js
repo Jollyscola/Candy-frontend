@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Candy from './Candy';
+import './Product.css';
 
 function HeaderTableProduct() {
     return (
@@ -9,18 +10,25 @@ function HeaderTableProduct() {
                 Navn
             </th>
             <th>
-                Vægt
+                Vægt i gram
+            </th>
+            <th>
+
             </th>
         </tr>
     )
 
 }
 
+/* const pStyle = {
+    font-size: '32px'
+
+}; */
 
 class Product extends Component {
 
     constructor(props) {
-        
+
         super(props)
         this.state = { zipcode: [], isload: false, pris: {}, candys: [], shop: '', id: '' };
     }
@@ -30,14 +38,14 @@ class Product extends Component {
         console.log(onChage);
     }
 
-  
+
     async  componentDidMount() {
         const props = this.props;
         const match = props.match;
         const shop = match.params.shops;
         const id = match.params.id;
-        this.setState({shop, id})
-        
+        this.setState({ shop, id })
+
         const candys = await this.props.facade.findallcandybyid();
         this.setState({ candys })
         /* const all = this.props.candys;
@@ -46,26 +54,30 @@ class Product extends Component {
 
 
 
+
     render() {
 
-        
-        console.log("propsss", this.props.shopcart)
         return (
             <div className="container">
                 <div className="text-center">
-                   <h3>{this.state.shop}</h3>
+                    <h3>{this.state.shop}</h3>
                 </div>
-                <div className="Text-center">
-                <Link to={`/reviews/${this.state.shop}-${this.state.id}`}>Reviews</Link>
+                <div className="container">
+                    <Link to={`/reviews/${this.state.shop}-${this.state.id}`}>Reviews</Link>
                 </div>
                 <div className="container">
                     <h4>Kategori</h4>
                     <table className="Table">
                         <thead><HeaderTableProduct /></thead>
-                        <tbody><Candy candys={this.state.candys} addToShoppingCart={this.props.addToShoppingCart}/></tbody>
+                        <tbody><Candy candys={this.state.candys} addToShoppingCart={this.props.addToShoppingCart} /></tbody>
                     </table>
-                    <div className="text-center">
-                        <Link to="/shoppingcart"><i className="fas fa-cart-arrow-down" /></Link>
+                    <div className="text-center" >
+                       {/*  <span style="font-size: 3em; color: Tomato;"> */}
+                            <Link to="/shoppingcart"><i className="fas fa-cart-arrow-down big-icon" /></Link>
+                        {/* </span> */}
+                    </div>
+                    <div>
+                        {/* this.state.message ? this.state.message : null */}
                     </div>
                 </div>
             </div>

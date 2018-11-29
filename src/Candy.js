@@ -33,9 +33,9 @@ class Candy extends Component {
         const id = event.target.id.value;
         const name = event.target.candy.value;
         const amount = Number(event.target.amount.value);
-        console.log(id, name, amount)       
+        console.log(id, name, amount)
         this.props.addToShoppingCart(id, name, amount);
-        this.setState({ message: 'Added product: ' + name + ' (Vægt: ' + amount + ')'})
+        this.setState({ message: 'Added product: ' + name + ' (Vægt: ' + amount + ')' })
         event.target.reset();
     }
 
@@ -45,28 +45,22 @@ class Candy extends Component {
     }
 
     render() {
-        return (<div>
-
-            {this.props.candys.map(candy =>
-                <tr key={candy.id}>
-                    <td>
-                        {candy.candyName}
-                    </td>
-                    <td>
-                        <form onSubmit={this.onShopcard} onFocus={this.handleChange}>
-                            <input type="hidden" name="id" value={candy.id} />
-                            <input type="hidden" name="candy" value={candy.candyName} />
-                            <input type="number" id="amount" className="candy" min="0" />
-                            <input type="submit" className="addtocart" value="Add to cart" />
-                        </form >
-                    </td>
-                </tr>
-            )}
-
-            {this.state.message ? this.state.message : null}
-        </div>
+        return ( this.props.candys.map(candy =>
+                                <tr key={candy.id}>
+                                    <td>
+                                        {candy.candyName}
+                                    </td>
+                                    <td>
+                                        <form onSubmit={this.onShopcard} onFocus={this.props.handleChange}>
+                                            <input type="hidden" name="id" value={candy.id} />
+                                            <input type="hidden" name="candy" value={candy.candyName} />
+                                            <input type="number" id="amount" className="candy" min="0" />
+                                            <input type="submit" className="addtocart" value="Add to cart" />
+                                        </form >
+                                    </td>
+                                </tr>
+                            )
         )
-
     }
 
 }
