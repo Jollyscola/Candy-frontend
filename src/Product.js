@@ -1,29 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Candy from './Candy';
-import './Product.css';
+import './Color.css';
 
-function HeaderTableProduct() {
-    return (
-        <tr>
-            <th>
-                Navn
-            </th>
-            <th>
-                Vægt i gram
-            </th>
-            <th>
 
-            </th>
-        </tr>
-    )
 
-}
 
-/* const pStyle = {
-    font-size: '32px'
-
-}; */
 
 class Product extends Component {
 
@@ -31,6 +13,8 @@ class Product extends Component {
 
         super(props)
         this.state = { zipcode: [], isload: false, pris: {}, candys: [], shop: '', id: '' };
+
+
     }
 
     onChange = (props) => {
@@ -48,15 +32,15 @@ class Product extends Component {
 
         const candys = await this.props.facade.findallcandybyid();
         this.setState({ candys })
-        /* const all = this.props.candys;
-        this.setState({ candys: all }); */
     }
 
+
+    
 
 
 
     render() {
-
+        /* console.log(this.props.shoppingCart.amount.length); */
         return (
             <div className="container">
                 <div className="text-center">
@@ -67,20 +51,15 @@ class Product extends Component {
                 </div>
                 <div className="container">
                     <h4>Kategori</h4>
-                    <table className="Table">
-                        <thead><HeaderTableProduct /></thead>
-                        <tbody><Candy candys={this.state.candys} addToShoppingCart={this.props.addToShoppingCart} /></tbody>
-                    </table>
+                </div>
+                <div>
+                    <Candy candys={this.state.candys} addToShoppingCart={this.props.addToShoppingCart} handleClick={this.handleClick} />
                     <div className="text-center" >
-                       {/*  <span style="font-size: 3em; color: Tomato;"> */}
-                            <Link to="/shoppingcart"><i className="fas fa-cart-arrow-down big-icon" /></Link>
-                        {/* </span> */}
-                    </div>
-                    <div>
-                        {/* this.state.message ? this.state.message : null */}
+                        <Link to="/shoppingcart"><i className="fas fa-cart-arrow-down big-icon" /></Link>
                     </div>
                 </div>
             </div>
+
         )
     }
 }

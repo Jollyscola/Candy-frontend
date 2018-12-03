@@ -1,5 +1,9 @@
 import endpoints from './settings.js';
+import shareendpoints from './sharesettings.js';
 const URL = endpoints
+const shareURL = shareendpoints
+
+
 
 function handleHttpErrors(res) {
     if (!res.ok) {
@@ -33,6 +37,8 @@ class Facade {
         return opts;
     }
 
+   
+
     makeOptionswithoutToken(method, body) {
         var opts = {
             method: method,
@@ -65,45 +71,53 @@ class Facade {
         localStorage.removeItem('jwtToken');
     }
 
-    login = (user, pass) => {
-        const options = this.makeOptions("POST", true, { username: user, password: pass });
+    login = async(email, pass) => {
+        const options = this.makeOptions("POST", true, { email: email, password: pass });
+        console.log("4")
         return fetch(URL + "/api/login", options, true)
             .then(handleHttpErrors)
             .then(res => { this.setToken(res.token) })
     }
 
 
-    fetchDataUser = () => {
+    fetchDataEmail = async() => {
+        const options = this.makeOptions("GET", true);
+        console.log("3")
+        return await fetch(URL + "/api/info/user", options).then(handleHttpErrors);
+    }
+    fetchDataAdmin = async() => {
         const options = this.makeOptions("GET", true);
 
-        return fetch(URL + "/api/info/user", options).then(handleHttpErrors);
-    }
-    fetchDataAdmin = () => {
-        const options = this.makeOptions("GET", true);
-
-        return fetch(URL + "/api/info/admin", options).then(handleHttpErrors);
+        return await fetch(URL + "/api/info/admin", options).then(handleHttpErrors);
     }
 
-
+    createUser = async(body) => {
+        console.log("facade", body)
+        const options = this.makeOptions("POST",true, body);
+        return await fetch(URL + "/api/register", options).then(handleHttpErrors)
+        .then(res => { this.setToken(res.token) });
+    }
+ 
     getZipcode = async (value) => {
         const zipcode = value;
         return fetch("http://dawa.aws.dk/postnumre/?nr=" + zipcode).then(handleHttpErrors);
     }
+    findcandybyid = async(values) => {
+        const id = values;
+        const options = this.makeOptionswithoutToken("GET");
+        return fetch(shareURL + "/" + id , options).then(handleHttpErrors);
+    }
 
     findallcandybyid = async() => {
         const options = this.makeOptionswithoutToken("GET");
-        return fetch(URL + "/api/candy/allcandy", options).then(handleHttpErrors);
+        return fetch(shareURL, options).then(handleHttpErrors);
     }
-    findallshopbyid = async() => {
+     findallshopbyid = async() => {
         const options = this.makeOptionswithoutToken("GET");
         return fetch(URL + "/api/shop/allshop", options).then(handleHttpErrors);
-    }
+    } 
 
-   /*  getZipcode = async (value) => {
-        const zipcode = value;
-
-        return fetch(URL + zipcode).then(handleHttpErrors);
-    } */
+  
 
     getshopbyposticalcode = async(value) => {
         const posticalcode = value;
