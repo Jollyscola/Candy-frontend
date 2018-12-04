@@ -40,14 +40,14 @@ class Register extends Component {
                 <div>
                     <h2>Register</h2>
                     <form onSubmit={this.submitUser} method="post" >
-                        <input onChange={this.handleChange} placeholder="FirstName" id="firstName" /><br/>
-                        <input  onChange={this.handleChange}placeholder="lastName" id="lastName" /><br/>
-                        <input  onChange={this.handleChange}placeholder="email" id="email" /><br/>
-                        <input onChange={this.handleChange} placeholder="password" id="password" /><br/>
-                        <input onChange={this.handleChange} placeholder="phone" id="phone" /><br/>
-                        <input  onChange={this.handleChange}placeholder="city" id="city" /><br/>
-                        <input  onChange={this.handleChange}placeholder="address" id="address" /><br/>
-                        <input onChange={this.handleChange} placeholder="zip" id="zip" type="number" min="1111" max="9999" /><br/>
+                        <input onChange={this.handleChange} placeholder="FirstName" id="firstName" required/><br/>
+                        <input  onChange={this.handleChange}placeholder="lastName" id="lastName" required /><br/>
+                        <input  onChange={this.handleChange}placeholder="email" id="email" type="email" required/><br/>
+                        <input onChange={this.handleChange} placeholder="password" id="password" type="password" required /><br/>
+                        <input onChange={this.handleChange} placeholder="phone" id="phone" type="tel"required /><br/>
+                        <input  onChange={this.handleChange}placeholder="city" id="city" type="city" required/><br/>
+                        <input  onChange={this.handleChange}placeholder="address" id="address" type="address" required /><br/>
+                        <input onChange={this.handleChange} placeholder="zip" id="zip" type="number" min="1111" max="9999" required/><br/>
                         <input type="submit" value="Register" /><br/>
                     </form>
                 </div>

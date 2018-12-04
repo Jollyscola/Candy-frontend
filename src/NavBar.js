@@ -35,6 +35,7 @@ class NavBar extends Component {
                     <li className="nav-item" ><NavLink exact className="nav-link" to="/shoplist">All shops</NavLink></li>
                     {!this.props.loggedIn && <li className="nav-item" ><NavLink exact className="nav-link" to="/login">login</NavLink></li>}
                     {!this.props.loggedIn && <li className="nav-item" ><NavLink exact className="nav-link" to="/register">Register</NavLink></li>}
+                    {this.props.loggedIn && <li className="nav-item" ><NavLink exact className="nav-link" to="/edit">Edit</NavLink></li>}
 
 
                 </ul>

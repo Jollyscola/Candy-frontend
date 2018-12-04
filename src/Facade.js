@@ -82,8 +82,12 @@ class Facade {
 
     fetchDataEmail = async() => {
         const options = this.makeOptions("GET", true);
-        console.log("3")
         return await fetch(URL + "/api/info/user", options).then(handleHttpErrors);
+    }
+
+    findDatabyEmail = async() => {
+        const options = this.makeOptions("GET", true);
+        return await fetch(URL + "/api/info/user/email", options).then(handleHttpErrors);
     }
     fetchDataAdmin = async() => {
         const options = this.makeOptions("GET", true);
