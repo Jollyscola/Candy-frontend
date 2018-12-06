@@ -5,14 +5,15 @@ import facade from './Facade';
 class Register extends Component {
     constructor(props) {
         super(props);
-        this.state = { user : {}  }
+        this.state = { user : {}, isload: false  }
     }
 
 
     handleChange = (event) => {
+       event.preventDefault();
         const id = event.target.id;
         const user = this.state.user;
-
+        console.log("user: ", user)
         id === 'firstName' && (user.firstName = event.target.value);
         id === 'lastName' && (user.lastName = event.target.value);
         id === 'email' && (user.email = event.target.value);
@@ -22,7 +23,7 @@ class Register extends Component {
         id === 'address' && (user.address = event.target.value);
         id === 'zip' && (user.zip = Number(event.target.value));
 
-        this.setState({ user: user });
+        this.setState({ user: user});
     }
 
     submitUser = (event) => {
@@ -30,6 +31,7 @@ class Register extends Component {
        const user = this.state.user;
        console.log(user);
         facade.createUser(user)
+        this.setState({isload: true})
         event.target.reset();
 
 
@@ -50,6 +52,9 @@ class Register extends Component {
                         <input onChange={this.handleChange} placeholder="zip" id="zip" type="number" min="1111" max="9999" required/><br/>
                         <input type="submit" value="Register" /><br/>
                     </form>
+                </div>
+                <div>
+                    {this.state.isload && "Register er gået igennem"}
                 </div>
             </div>
         )

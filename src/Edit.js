@@ -5,62 +5,70 @@ import facade from './Facade';
 class Edit extends Component {
     constructor(props) {
         super(props);
-        this.state = { user: {}, dataFromServer: "Fetching!!" }
+        this.state = { userprofil: {} }
     }
 
 
     componentDidMount() {
-        facade.findDatabyEmail().then(res => this.setState({ dataFromServer: res }));
 
     }
 
 
     handleChange = (event) => {
         const id = event.target.id;
-        const user = this.state.user;
 
-        id === 'firstName' && (user.firstName = event.target.value);
-        id === 'lastName' && (user.lastName = event.target.value);
-        id === 'email' && (user.email = event.target.value);
-        id === 'password' && (user.password = event.target.value);
-        id === 'phone' && (user.phone = event.target.value);
-        id === 'city' && (user.city = event.target.value);
-        id === 'address' && (user.address = event.target.value);
-        id === 'zip' && (user.zip = Number(event.target.value));
+        var userprofil = this.props.facade;
+        console.log(userprofil.email)
+        id === 'firstName' && (userprofil.firstName = event.target.value);
+        id === 'lastName' && (userprofil.lastName = event.target.value);
+        id === 'email' && (userprofil.email = event.target.value);
+        id === 'password' && (userprofil.password = event.target.value);
+        id === 'phone' && (userprofil.phone = event.target.value);
+        id === 'city' && (userprofil.city = event.target.value);
+        id === 'address' && (userprofil.address = event.target.value);
+        id === 'zip' && (userprofil.zip = Number(event.target.value));
 
-        this.setState({ user: user });
+        this.setState({ userprofil: userprofil });
     }
 
-    submitUser = (event) => {
+    EditUser = (event) => {
         event.preventDefault();
-        const user = this.state.user;
+        const user = this.state.userprofil;
         console.log(user);
-        facade.createUser(user)
+        facade.editUser(user, user.email)
         event.target.reset();
-
+        this.setState({userprofil: {firstName : '' , lastName: '', email: '', password: '', phone: '', city: '', address:'', zip: ''}})
 
     }
     render() {
-        return (
-            <div className="text-center">
-                <div>
+        var userprofil = this.props.facade;
+      /*   if (!this.props.loggedIn) { */
+            return (
+                <div className="text-center">
+                    <div>
 
-                    {this.state.dataFromServer}
-                    <h2>Edit</h2>
-                    <form onSubmit={this.submitUser} method="post" >
-                        <input onChange={this.handleChange} placeholder="FirstName" id="firstName" required /><br />
-                        <input onChange={this.handleChange} placeholder="lastName" id="lastName" required /><br />
-                        <input onChange={this.handleChange} placeholder="email" id="email" type="email" required /><br />
-                        <input onChange={this.handleChange} placeholder="password" id="password" type="password" required /><br />
-                        <input onChange={this.handleChange} placeholder="phone" id="phone" type="tel" required /><br />
-                        <input onChange={this.handleChange} placeholder="city" id="city" type="city" required /><br />
-                        <input onChange={this.handleChange} placeholder="address" id="address" type="address" required /><br />
-                        <input onChange={this.handleChange} placeholder="zip" id="zip" type="number" min="1111" max="9999" required /><br />
-                        <input type="submit" value="Edit" /><br />
-                    </form>
+                        {this.state.dataFromServer}
+                        <h2>Edit</h2>
+                        <form onSubmit={this.EditUser} method="Put" >
+                            <input onChange={this.handleChange} value={userprofil.firstName} placeholder="FirstName" id="firstName" required /><br />
+                            <input onChange={this.handleChange} value={userprofil.lastName} placeholder="lastName" id="lastName" required /><br />
+                            <input onChange={this.handleChange} value={userprofil.phone} placeholder="phone" id="phone" type="tel" required /><br />
+                            <input onChange={this.handleChange} value={userprofil.city} placeholder="city" id="city" type="city" required /><br />
+                            <input onChange={this.handleChange} value={userprofil.address} placeholder="address" id="address" type="address" required /><br />
+                            <input onChange={this.handleChange} value={userprofil.zip} placeholder="zip" id="zip" type="number" min="1111" max="9999" required /><br />
+                            <input onChange={this.handleChange} placeholder="password" id="password" type="password" required /><br />
+                            <input type="submit" value="Edit" /><br />
+                        </form>
+                    </div>
                 </div>
-            </div>
-        )
+            
+
+           
+        )/* } else{ 
+        return(
+            <div>Hej</div>
+        ) */
+        /*  } */
     }
 }
 

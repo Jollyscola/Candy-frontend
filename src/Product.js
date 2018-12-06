@@ -58,6 +58,7 @@ class Product extends Component {
                         <Link to="/shoppingcart"><i className="fas fa-cart-arrow-down big-icon" /></Link>
                     </div>
                 </div>
+                <br/><br/>
             </div>
 
         )

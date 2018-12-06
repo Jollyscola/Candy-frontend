@@ -6,7 +6,7 @@ class Reviews extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { store: '', Review: {}, shop: { id: '' }, shopreviews: [] }
+        this.state = { store: '', Review: {}, shop: { id: '' }, shopreviews: [], reviewmessenge: null }
     }
 
     async componentDidMount() {
@@ -16,11 +16,10 @@ class Reviews extends Component {
         const store = match.params.shop;
         const id = match.params.id;
         const shopreviews = await this.props.facade.getreviewbyid(id);
-        console.log("shop:", shopreviews);
         this.setState({ store, shop: { id }, shopreviews })
 
-        
-      
+
+
     }
 
     handleChange = (event) => {
@@ -40,13 +39,13 @@ class Reviews extends Component {
         const reviews = this.state.Review;
 
         this.props.facade.addReview(reviews);
+        this.setState({ reviewmessenge: "Review is add" })
         event.target.reset();
 
 
     }
     reviewtable = () => {
 
-        console.log("shopreview:", this.state.shopreviews)
         const result = this.state.shopreviews.map(product =>
             <tr key={product.id}>
                 <td>
@@ -54,6 +53,7 @@ class Reviews extends Component {
                     <br />
                     Rate: ({product.rating})
                 </td>
+
             </tr>
         )
         return result;
@@ -76,8 +76,12 @@ class Reviews extends Component {
                         <input type="submit" value="Review" />
                     </form>
                 </div>
+                
+                <div className="text-center">
+                   {!null && this.state.reviewmessenge}
+                </div>
                 <div className="container">
-                    <table  className="table">
+                    <table className="table">
                         <tbody>{this.reviewtable()}</tbody>
                     </table>
                 </div>

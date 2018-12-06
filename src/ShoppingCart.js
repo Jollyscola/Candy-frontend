@@ -11,16 +11,16 @@ class ShoppingCart extends Component {
     candyhead() {
         return (
             <tr>
-                    <td>
+                <td>
                     Name
                     </td>
-                    <td>
+                <td>
                     Type
                     </td>
-                        <td>
+                <td>
                     Flavour
                     </td>
-                     <td>
+                <td>
                     Vægt i gram
                     </td>
 
@@ -30,7 +30,6 @@ class ShoppingCart extends Component {
     }
 
     candyTable() {
-        console.log(this.props.shoppingCart);
         return (
 
             this.props.shoppingCart.map((product) =>
@@ -55,23 +54,29 @@ class ShoppingCart extends Component {
     }
 
     render() {
-
-        return (
-            <div className="column">
-                <div className="text-center">
-                    <br /><br />
-                    <h3>Shoppingcart</h3>
-                </div>
-                <table className="table">
-                    <thead>{this.candyhead()}</thead>
-                    <tbody>
-                        {this.candyTable()}
-                    </tbody>
-                </table>
-                <div>
-                </div>
-            </div >
-        )
+        if (this.props.shoppingCart.length === 0) {
+            return (
+                
+                <div className="text-center"><h3><br/><br/>There is nothing in shoppingcart</h3></div>
+            )
+        } else {
+            return (
+                <div className="column">
+                    <div className="text-center">
+                        <br /><br />
+                        <h3>Shoppingcart</h3>
+                    </div>
+                    <table className="table">
+                        <thead>{this.candyhead()}</thead>
+                        <tbody>
+                            {this.candyTable()}
+                        </tbody>
+                    </table>
+                    <div>
+                    </div>
+                </div >
+            )
+        }
     }
 }
 

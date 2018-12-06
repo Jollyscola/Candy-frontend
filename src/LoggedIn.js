@@ -4,21 +4,29 @@ import facade from "./Facade";
 class LoggedIn extends Component {
   constructor(props) {
     super(props);
-    this.state = { people: [] };
+    this.state = { dataFromServer: "Fetching!!", people: [], DataEmail: "" };
   }
   componentDidMount = async () => {
-   
-    //facade.fetchDataAdmin().then(res => this.setState({ dataFromServer: res }));
-
+    facade.fetchDataEmail().then(res => this.setState({ dataFromServer: res }));
+    facade.fetchDataAdmin().then(res => this.setState({ dataFromServer: res }));
   }
-
   render() {
-    console.log(this.props)
+
     return (
       <div >
+
         <div className="text-center">
           <br />
-          <h2>{this.props.dataFromServer}</h2>
+          <h4>{this.state.dataFromServer}</h4>
+          <div>
+            {facade.firstName} - {facade.lastName}
+          </div>
+          <div>
+            {facade.city}
+          </div>
+          <div>
+            {facade.address} - {facade.zip}
+          </div>
         </div>
       </div>
     )
